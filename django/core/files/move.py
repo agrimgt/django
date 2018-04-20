@@ -73,7 +73,7 @@ def file_move_safe(old_file_name, new_file_name, chunk_size=1024 * 64, allow_ove
         # Certain filesystems (e.g. CIFS) fail to copy the file's metadata if
         # the type of the destination filesystem isn't the same as the source
         # filesystem; ignore that.
-        if e.errno != errno.EPERM:
+        if e.errno not in [errno.EPERM, errno.EACCES]:
             raise
 
     try:
